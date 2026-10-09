@@ -31,4 +31,5 @@ python main.py
 ## Autor
 
 Gustavo Gabriel Gonçalves.
+
 Projeto pessoal desenvolvido para praticar programação em Python.
