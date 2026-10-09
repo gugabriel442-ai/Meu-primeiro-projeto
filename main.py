@@ -1,6 +1,3 @@
-carros = carregar_carros()
-
-
 import json
 import os
 
@@ -29,24 +26,43 @@ def formatar_preco(preco):
     return preco
 
 def cadastrar_carro():
-    marca = input("Digite a marca do carro: ")
-    modelo = input("Digite o modelo do carro: ")
+    marca = input("Digite a marca do carro: ").strip()
+
+    while marca == "":
+        print("A marca não pode ficar vazia.")
+        marca = input("Digite a marca do carro: ").strip()
+
+    modelo = input("Digite o modelo do carro: ").strip()
+
+    while modelo == "":
+        print("O modelo não pode ficar vazio.")
+        modelo = input("Digite o modelo do carro: ").strip()
 
     ano = input("Digite o ano do carro: ")
 
-    while not ano.isdigit():
-        print("Digite um ano válido.")
+    while not ano.isdigit() or int(ano) < 1886 or int(ano) > 2026:
+        print("Digite um ano válido entre 1886 e 2026.")
         ano = input("Digite o ano do carro: ")
 
     ano = int(ano)
 
     preco = input("Digite o preço do carro: ")
 
-    while not preco.isdigit():
-        print("Digite um preço válido.")
-        preco = input("Digite o preço do carro: ")
+    while True:
+        try:
+            preco = preco.strip().replace(".", "").replace(",", ".")
+            preco = float(preco)
 
-    preco = float(preco)
+            if preco <= 0:
+                print("O preço deve ser maior que zero.")
+                preco = input("Digite o preço do carro: ")
+                continue
+
+            break
+
+        except ValueError:
+            print("Digite um preço válido.")
+            preco = input("Digite o preço do carro: ")
 
     carro = {
         "marca": marca,
@@ -59,6 +75,7 @@ def cadastrar_carro():
     salvar_carros()
 
     print("Carro cadastrado com sucesso!")
+
 
 def listar_carros():
     if len(carros) == 0:
@@ -124,42 +141,41 @@ def relatorio_estoque():
         print("Carro mais barato:", carro_mais_barato["modelo"])
         print("Preço: R$", formatar_preco(carro_mais_barato["preco"]))
 
-              
-while True:
-    print("\n===== CADASTRO DE CARROS =====")
-    print("1 - Cadastrar carro")
-    print("2 - Listar carros")
-    print("3 - Pesquisar carro")
-    print("4 - Excluir carro")
-    print("5 - Relatório do estoque")
-    print("6 - Sair")
+            
+def main():
+    while True:
+        print("\n===== CADASTRO DE CARROS =====")
+        print("1 - Cadastrar carro")
+        print("2 - Listar carros")
+        print("3 - Pesquisar carro")
+        print("4 - Excluir carro")
+        print("5 - Relatório do estoque")
+        print("6 - Sair")
 
-    opcao = input("Escolha uma opção: ")
+        opcao = input("Escolha uma opção: ")
 
-    # Cadastrar carro
-    if opcao == "1":
-        cadastrar_carro()
+        if opcao == "1":
+            cadastrar_carro()
 
-    # Listar carros
-    elif opcao == "2":
-        listar_carros()
+        elif opcao == "2":
+            listar_carros()
 
-    # Pesquisar carro
-    elif opcao == "3":
-        pesquisar_carro()
+        elif opcao == "3":
+            pesquisar_carro()
 
-    # Excluir carro
-    elif opcao == "4":
-        excluir_carro()
+        elif opcao == "4":
+            excluir_carro()
 
-    # Relatório do estoque
-    elif opcao == "5":
-        relatorio_estoque()
-    
-    # Sair
-    elif opcao == "6":
-        print("Programa encerrado!")
-        break
+        elif opcao == "5":
+            relatorio_estoque()
 
-    else:
-        print("Opção inválida.")
+        elif opcao == "6":
+            print("Programa encerrado!")
+            break
+
+        else:
+            print("Opção inválida.")
+
+
+if __name__ == "__main__":
+    main()

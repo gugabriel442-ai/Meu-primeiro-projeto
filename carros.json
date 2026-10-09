@@ -1,0 +1,20 @@
+[
+    {
+        "marca": "Chevrolet",
+        "modelo": "Astra",
+        "ano": 2007,
+        "preco": 30000.0
+    },
+    {
+        "marca": "Ford ",
+        "modelo": "New fiesta",
+        "ano": 2014,
+        "preco": 39000.0
+    },
+    {
+        "marca": "Honda",
+        "modelo": "Fit",
+        "ano": 2013,
+        "preco": 47000.0
+    }
+]
